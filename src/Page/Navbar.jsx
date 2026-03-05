@@ -12,6 +12,7 @@ import { FaShoppingBag } from "react-icons/fa";
 const Navbar = () => {
   const [inputvalue, setInputValue] = React.useState("");
   const [searchedProducts, setSearchedProducts] = React.useState([]);
+  const { cart, products } = useContext(CartContext);
 
   function handleChange(e) {
     setInputValue(e.target.value);
@@ -22,10 +23,6 @@ const Navbar = () => {
     const filtered = products.filter(product => product.title.toLowerCase().startsWith(e.target.value.toLowerCase()));
     setSearchedProducts(filtered);
   }
-
-
-
-  const { cart } = useContext(CartContext);
 
   return (
     <>

@@ -3,7 +3,7 @@ import Login from './Page/Login'
 import Home from './Page/Home'
 import About from './Page/About'
 import Navbar from './Page/navbar'
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import Notfound from './Notfound'
 import Paharisong from './Page/Paharisong'
 import Englishsong from './Page/Englishsong'
@@ -19,7 +19,16 @@ export const CartContext = createContext(null);
 
 function App() {
 
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    fetch('https://dummyjson.com/products?limit=100')
+      .then(res => res.json())
+      .then(data => setProducts(data.products))
+      .catch(err => console.error("Failed to fetch products:", err));
+  }, []);
+
 
   const addToCart = (e, product) => {
     e.preventDefault();
@@ -38,7 +47,7 @@ function App() {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeItemFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeItemFromCart, products }}>
       <div>
         {/* <Navbar /> */}
         <Routes>

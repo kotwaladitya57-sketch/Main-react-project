@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import Navbar from './navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../App'
@@ -9,16 +9,7 @@ import { FaShopify } from "react-icons/fa";
 
 const Products = () => {
 
-    const [products, setProducts] = useState([]);
-    
-    useEffect(() => {
-        fetch('https://dummyjson.com/products')
-            .then((res)=>res.json())
-            .then((data)=> setProducts(data.products))
-            .catch((err)=> console.log(err))
-    }, [])
-
-    const { addToCart } = useContext(CartContext);
+    const { addToCart, products } = useContext(CartContext);
     const navigate = useNavigate();
 
     const handleAddToCart = (e, product) => {
