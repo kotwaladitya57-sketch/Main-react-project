@@ -2,8 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './Page/Login'
 import Home from './Page/Home'
 import About from './Page/About'
-import Navbar from './Page/navbar'
-import React, { useState, createContext, useEffect } from 'react'
+import React from 'react'
 import Notfound from './Notfound'
 import Paharisong from './Page/Paharisong'
 import Englishsong from './Page/Englishsong'
@@ -14,41 +13,12 @@ import Products from './Page/Product'
 import Deatil from './Page/Deatil'
 import './Page/Page.css'
 import Addtocart from './Page/Addtocart'
-
-export const CartContext = createContext(null);
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    fetch('https://dummyjson.com/products?limit=100')
-      .then(res => res.json())
-      .then(data => setProducts(data.products))
-      .catch(err => console.error("Failed to fetch products:", err));
-  }, []);
-
-
-  const addToCart = (e, product) => {
-    e.preventDefault();
-    // Add logic to avoid adding duplicate items
-    setCart(currentCart => {
-      if (currentCart.find(item => item.id === product.id)) {
-        alert("Item is already in the cart!");
-        return currentCart;
-      }
-      return [...currentCart, product];
-    });
-  };
-
-  const removeItemFromCart = (Id) => {
-    setCart(currentCart => currentCart.filter(ele => ele.id !== Id));
-  };
-
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeItemFromCart, products }}>
-      <div>
+      <div >
         {/* <Navbar /> */}
         <Routes>
           <Route path='/' element={<Home />} />
@@ -72,8 +42,8 @@ function App() {
 
           <Route path='*' element={<Notfound />} />
         </Routes>
+        <ToastContainer />
       </div>
-    </CartContext.Provider>
   )
 }
 

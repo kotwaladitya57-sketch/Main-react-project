@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from './navbar'
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import CartContext from './Cartcontext';
 
 
 const Deatil = () => {
     const { id } = useParams()
 
+    const { addToCart } = useContext(CartContext);
     const [data, setData] = useState(null);
 
     useEffect(() => {
         fetch(`https://dummyjson.com/products/${id}`)
             .then((res) => res.json())
-            .then((data) => setData(data));
+            .then((productData) => setData(productData))
+            .catch(err => console.error("Failed to fetch product details:", err));
     }, [id]);
 
-    if (data == null) {
-        return <h1>Loading...</h1>
+    if (!data) {
+        return (<div>
+            <Navbar />
+            <h1 className='h1'>Loading...</h1>
+        </div>)
     }
-
 
     return (
         <div>
@@ -45,7 +50,7 @@ const Deatil = () => {
                     <h3>Price: <FaIndianRupeeSign />{data.price}</h3>
                     <p>{data.description}</p>
                     <h4>Rating: {data.rating} / 5</h4>
-                    <button id='btn' onClick={(e) => handleAddToCart(e, data)}>Add to Cart</button>
+                    <button id='btn' onClick={(e) => addToCart(e, data)}>Add to Cart</button>
                 </div>
             </div>
         </div>

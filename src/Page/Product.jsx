@@ -1,26 +1,16 @@
 import React, { useContext } from 'react'
 import Navbar from './navbar'
 import { Link, useNavigate } from 'react-router-dom'
-import { CartContext } from '../App'
+import CartContext from './Cartcontext'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaShopify } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const Products = () => {
 
-    const { addToCart, products } = useContext(CartContext);
-    const navigate = useNavigate();
-
-    const handleAddToCart = (e, product) => {
-        addToCart(e, product);
-        alert(`${product.title} has been added to the cart!`);
-    }
-
-    const gotoLogin = (e) => {
-        e.preventDefault();
-        navigate('/Login');
-    }
+    const { addToCart, products, gotoLogin } = useContext(CartContext);
 
     return (
         <div>
@@ -47,8 +37,8 @@ const Products = () => {
                                     <h3>Price : <FaIndianRupeeSign /> {ele.price}</h3>
                                     <p>{ele.description}</p>
                                     <div className='button-group'>
-                                        <button className='btn1' onClick={gotoLogin}>Buy Now <FaShopify size={23} style={{ marginRight: "6px" }} /> </button>
-                                        <button className='btn2' onClick={(e) => handleAddToCart(e, ele)}>Add to Cart <FaShoppingCart size={24} style={{ marginRight: "6px", color: "black" }} /> </button>
+                                        <button className='btn1' onClick={(e) => gotoLogin(e)}>Buy Now <FaShopify size={23} style={{ marginRight: "6px" }} /> </button>
+                                        <button className='btn2' onClick={(e) => addToCart(e, ele)}>Add to Cart <FaShoppingCart size={24} style={{ marginRight: "6px", color: "black" }} /> </button>
                                     </div>
                                 </div>
                             </Link>
@@ -63,4 +53,3 @@ const Products = () => {
 
 export default Products
 
-    

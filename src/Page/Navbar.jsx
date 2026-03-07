@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { CartContext } from '../App';
+import CartContext from './Cartcontext';
 // import { FaSearch } from 'react-icons/fa';
 import { FcSearch } from "react-icons/fc";
 import { IoIosLogIn } from "react-icons/io";
@@ -12,7 +12,7 @@ import { FaShoppingBag } from "react-icons/fa";
 const Navbar = () => {
   const [inputvalue, setInputValue] = React.useState("");
   const [searchedProducts, setSearchedProducts] = React.useState([]);
-  const { cart, products } = useContext(CartContext);
+  const { cart, products, isLoggedIn, logout, user } = useContext(CartContext);
 
   function handleChange(e) {
     setInputValue(e.target.value);
@@ -48,8 +48,14 @@ const Navbar = () => {
 
         {/* <Link to="/" id='h1'>Home</Link> */}
         <Link to="/about" class='h1' style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px" }}><MdRoundaboutRight size={25} />About</Link>
-        <Link to="/Login" class='h1' style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px" }}><IoIosLogIn size={25} />Log In</Link>
-        {/* <Link to="/song" id='h1'>Songs</Link> */}
+        {isLoggedIn ? (
+          <>
+            <span className='h1' style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px", color: 'inherit', fontSize: 'inherit' }}>Welcome, {user?.name.split(' ')[0]}</span>
+            <button onClick={logout} className='h1' style={{ background: 'none', border: 'none', cursor: 'pointer', display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px", color: 'inherit', fontSize: 'inherit' }}><IoIosLogIn size={25} />Logout</button>
+          </>
+        ) : (
+          <Link to="/Login" class='h1' style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px" }}><IoIosLogIn size={25} />Log In</Link>
+        )}
         <Link to="/addtocart" class='h1' style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "25px" }}><IoIosCart size={25} />Add to Cart ({cart.length})</Link>
 
 

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import Navbar from './navbar'
-import { CartContext } from '../App'
+import CartContext from './Cartcontext'
 import { FaOpencart } from "react-icons/fa6";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 
 const Addtocart = () => {
@@ -21,8 +22,9 @@ const Addtocart = () => {
               <img src={item.thumbnail} alt={item.title} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
               <div>
                 <h2>{item.title}</h2>
-                <h3>Price: {item.price}</h3>
+                <h3>Price: <FaIndianRupeeSign />{item.price}</h3>
               </div>
+              <p>Quantity: {item.quantity || 1}</p>
               <button id='btnR' onClick={() => removeItemFromCart(item.id)}>Remove</button>
             </div>
           ))}

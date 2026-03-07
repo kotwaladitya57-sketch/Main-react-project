@@ -1,25 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Navbar from './navbar'
 import { FaPaperPlane } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
+import CartContext from './Cartcontext';
 
 
 const Contact = () => {
+    const { login } = useContext(CartContext);
     const [data, setData] = useState({
         name: "",
         email: "",
         phone: ""
     })
 
-    const addlogin = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
         if (!data.name || !data.email || !data.phone) return alert("All fields are required");
-        alert("Form Submitted");
-        localStorage.setItem("userData", JSON.stringify(data));
-        localStorage.setItem("isLoggedIn", "true");
-        alert("Login successful!");
+        login(data);
     }
 
     return (
@@ -37,7 +36,7 @@ const Contact = () => {
                         <input id="email" type="email" placeholder="Email" onChange={(e) => setData({ ...data, email: e.target.value })} required />
                         <FaPhoneAlt className="icon" size={30} style={{ marginRight: "6px" }} />
                         <input id="phone" type="tel" placeholder="Phone" maxLength={10} onChange={(e) => setData({ ...data, phone: e.target.value })} required /><br />
-                        <button type="submit" id='btn' onClick={addlogin}>Submit <FaPaperPlane style={{ marginRight: "6px" }} /></button>
+                        <button type="submit" id='btn' onClick={handleLoginSubmit}>Submit <FaPaperPlane style={{ marginRight: "6px" }} /></button>
                     </form>
                 </div>
             </div>
