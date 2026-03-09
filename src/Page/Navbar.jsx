@@ -14,6 +14,8 @@ const Navbar = () => {
   const [searchedProducts, setSearchedProducts] = React.useState([]);
   const { cart, products, isLoggedIn, logout, user } = useContext(CartContext);
 
+  // console.log(cart)
+
   function handleChange(e) {
     setInputValue(e.target.value);
     if (e.target.value === "") {

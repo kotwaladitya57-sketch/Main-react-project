@@ -22,9 +22,9 @@ const CartProvider = ({ children }) => {
 
     const addToCart = (e, product) => {
         e.preventDefault();
-        setCart(currentCart => {
-            if (currentCart.find(item => item.id === product.id)) {
-                setCart(currentCart.map(ele => {
+       
+            if (cart.find(item => item.id === product.id)) {
+                setCart(cart.map(ele => {
                     if (ele.id === product.id) {
                         return { ...ele, quantity: ele.quantity + 1 }
                     } else { return ele; }
@@ -32,7 +32,7 @@ const CartProvider = ({ children }) => {
                 // alert(`${product.title} has been added to the cart!`);
                
             } else {
-                setCart([...currentCart, { ...product, quantity: 1 }]);
+              setCart([...cart, { ...product, quantity: 1 }])
                  toast.success(`${product.title} has been added to the cart!`, {
                     position: "top-left",
                     autoClose: 5001,
@@ -44,7 +44,7 @@ const CartProvider = ({ children }) => {
                     theme: "dark",
                 });
             }
-        });
+        
     };
 
     const removeItemFromCart = (Id) => {
