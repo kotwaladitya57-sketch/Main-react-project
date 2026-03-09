@@ -22,29 +22,29 @@ const CartProvider = ({ children }) => {
 
     const addToCart = (e, product) => {
         e.preventDefault();
-       
-            if (cart.find(item => item.id === product.id)) {
-                setCart(cart.map(ele => {
-                    if (ele.id === product.id) {
-                        return { ...ele, quantity: ele.quantity + 1 }
-                    } else { return ele; }
-                }))
-                // alert(`${product.title} has been added to the cart!`);
-               
-            } else {
-              setCart([...cart, { ...product, quantity: 1 }])
-                 toast.success(`${product.title} has been added to the cart!`, {
-                    position: "top-left",
-                    autoClose: 5001,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
-        
+
+        if (cart.find(item => item.id === product.id)) {
+            setCart(cart.map(ele => {
+                if (ele.id === product.id) {
+                    return { ...ele, quantity: ele.quantity + 1 }
+                } else { return ele; }
+            }))
+            // alert(`${product.title} has been added to the cart!`);
+
+        } else {
+            setCart([...cart, { ...product, quantity: 1 }])
+            toast.success(`${product.title} has been added to the cart!`, {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+
     };
 
     const removeItemFromCart = (Id) => {
@@ -54,7 +54,17 @@ const CartProvider = ({ children }) => {
     const login = (userData) => {
         localStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("isLoggedIn", "true");
-        alert("Login successful!");
+        toast.success("LogIn successfully", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+
         navigate('/product');
     };
 
